@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable no-unused-vars */
+import React from "react";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Account from "./pages/Account";
+import { Route, Routes } from "react-router-dom";
+import { AuthContextProvider } from "./context/AuthContext";
+import Private from "./components/Private";
+import LandingPage from "./pages/LandingPage";
+import Itinerary from "./pages/Itinerary";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/itinerary" element={<Itinerary />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route
+            path="/account"
+            element={
+              <Private>
+                <Account />
+              </Private>
+            }
+          />
+        </Routes>
+      </AuthContextProvider>
     </div>
   );
 }
